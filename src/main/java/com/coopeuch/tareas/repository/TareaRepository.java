@@ -23,7 +23,7 @@ public class TareaRepository {
     private JdbcTemplate jdbcTemplate;
     
     public void insert(Tarea tarea){
-        String sql = "INSERT INTO tarea (descripcion, fecha_creacion, vigencia) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tarea (descripcion, fecha_creacion, vigente) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, tarea.getDescripcion(), 
                 tarea.getFechaCreacion(), (tarea.getVigente()) ? 1 : 0);
     }
@@ -41,13 +41,19 @@ public class TareaRepository {
     }
     
     public void delete(Integer id){
-        String sql = "DELETE FROM tarea WHERE id = ?";
+        String sql = "DELETE FROM tarea WHERE id_tarea = ?";
         jdbcTemplate.update(sql, id);
     }
     
     public List<Tarea> select(){
         String sql = "SELECT * from tarea";
         return jdbcTemplate.query(sql, new TareaRowMapper());
+    }
+    
+    public Tarea selectOne(Integer id){
+        String sql = "SELECT * FROM tarea WHERE id_tarea = ?";
+        List<Tarea> tareas = jdbcTemplate.query(sql, new TareaRowMapper(), id);
+        return (tareas != null && tareas.size() > 0) ? tareas.get(0) : new Tarea();
     }
     
 }
