@@ -53,7 +53,7 @@ public class TareaRepository {
     public Tarea selectOne(Integer id){
         String sql = "SELECT * FROM tarea WHERE id_tarea = ?";
         List<Tarea> tareas = jdbcTemplate.query(sql, new TareaRowMapper(), id);
-        return (tareas != null && tareas.size() > 0) ? tareas.get(0) : new Tarea();
+        return (tareas != null && tareas.size() > 0) ? tareas.get(0) : new Tarea(); 
     }
     
 }
