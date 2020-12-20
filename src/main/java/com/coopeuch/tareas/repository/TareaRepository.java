@@ -46,7 +46,7 @@ public class TareaRepository {
     }
     
     public List<Tarea> select(){
-        String sql = "SELECT * from tarea";
+        String sql = "SELECT * from tarea order by id_tarea desc";
         return jdbcTemplate.query(sql, new TareaRowMapper());
     }
     
